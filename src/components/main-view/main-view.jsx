@@ -1,5 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 
+import { RegistrationView } from '../registration-view/registration-view';
+import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
@@ -7,48 +10,62 @@ export class MainView extends React.Component {
   constructor() {
     super();
     this.state = {
-      movies: [
-              { _id: 1,  
-              Title: 'Inception', 
-              Rating: '8.8',
-              Description: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.',
-              Genre: 'Sci-Fi', 
-              Director: 'Christopher Nolan',
-              ImagePath: '...'},
-              { _id: 2, 
-              Title: 'The Shawshank Redemption', 
-              Rating: '9.3',
-              Description: 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.', 
-              Genre: 'Drama',
-              Director: 'Frank Darabont',
-              ImagePath: '...'},
-              { _id: 3, 
-              Title: 'Gladiator', 
-              Rating:'8.5',
-              Description: 'A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.', 
-              Genre: 'Adventure',
-              Director: 'Ridley Scott',
-              ImagePath: '...'}
-            ],
-      selectedMovie: null
+      movies: [],
+      selectedMovie: null,
+      user: null
     };
   }
 
-  //custom component method
-  setSelectedMovie(newSelectedMovie) {
+  componentDidMount(){
+    axios.get('https://movie-api-777.herokuapp.com/movies')
+      .then(response => {
+        this.setState({
+          movies: response.data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  // when movie is clicked, function is invoked and updates thate of "selectedMovie" property
+  setSelectedMovie(movie) {
     this.setState({
-      selectedMovie: newSelectedMovie
+      selectedMovie: movie
+    });
+  }
+
+
+  //user registration
+  onRegistration(registration) {
+    this.setState({
+      registration
+    });
+  }
+
+  //when a user successfully logs in, function updates the "user" property in state of that particular user
+  onLoggedIn(user) {
+    this.setState({
+      user
     });
   }
 
   render() {
-    const { movies, selectedMovie } = this.state;
+    const { movies, selectedMovie, user, registration } = this.state;
   
-    if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
+    //return registration view, if user isn't registered
+    if (!registration) return <RegistrationView onRegistration={(registration) => this.onRegistration(registration)} />;
+
+    //if no user, LoginView is rendered - if logged-in user exists, user details are passed as a prop to the LoginView
+    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+
+    //before movies are loaded
+    if (movies.length === 0) return <div className="main-view" />;
 
     return (
       <div className="main-view">
-        {selectedMovie
+        {/* if state of selectedMovie isn't "null", selected movie will be returned. otherwise returns all movies */}
+          {selectedMovie
           ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
           : movies.map(movie => (
             <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
