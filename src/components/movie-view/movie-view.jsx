@@ -1,37 +1,35 @@
 import React from 'react';
 
+// import Button from 'react-bootstrap/Button';
+import { Card, Col, Button, Row, Container} from 'react-bootstrap';
+
+import './movie-view.scss';
+
 export class MovieView extends React.Component {
 
   render() {
     const { movie, onBackClick } = this.props;
 
     return (
-      <div className="movie-view">
-        <div className="movie-poster">
-          <img src={movie.ImagePath} />
-        </div>
-        <div className="movie-title">
-          <span className="label">Title: </span>
-          <span className="value">{movie.Title}</span>
-        </div>
-        <div className ="movie-rating">
-          <span className="label">IMDb Rating: </span>
-          <span className="value">{movie.Rating}</span>
-        </div>
-        <div className="movie-description">
-          <span className="label">Description: </span>
-          <span className="value">{movie.Description}</span>
-        </div>
-        <div className="movie-genre">
-          <span className="label">Genre: </span>
-          <span className="value">{movie.Genre.Name}</span>
-        </div>
-        <div className="movie-director">
-          <span className="label">Director: </span>
-          <span className="value">{movie.Director.Name}</span>
-        </div>
-        <button onClick={() => { onBackClick(null); }}>Back</button>
-       </div>
+      <Container>
+      <Row>
+        <Col>
+        <Card id="movie-view">
+          <Card.Body>
+            <Card.Img className="movie-poster" src="{movie.ImagePath}" />
+            <Card.Title className="movie-title text-center">{movie.Title}</Card.Title>
+            <Card.Text className="movie-rating">{movie.Rating}</Card.Text>
+            <Card.Text className="movie-description">{movie.Description}</Card.Text><br/>
+            <Card.Text className="movie-genre">Genre: {movie.Genre.Name}</Card.Text>
+            <Card.Text className="movie-director">Director: {movie.Director.Name}</Card.Text><br/>
+
+            <Button variant="outline-info" id="button-mv button-favorite" onClick={() => {}}>Add to favorites</Button>
+            <Button variant="outline-success" id="button-mv button-back" className="float-right" onClick={() => { onBackClick(null); }}>Back</Button>
+          </Card.Body>
+        </Card>
+        </Col>
+      </Row>
+      </Container>
     );
   }
 }

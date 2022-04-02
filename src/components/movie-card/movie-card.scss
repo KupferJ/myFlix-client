@@ -1,0 +1,15 @@
+$backgroundColor: #ffffff;
+$textColor: #000000;
+
+
+#movie_card {
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  border-color: $textColor;
+  border-width: 1px;
+}
+
+#movie_card-title {
+  margin-bottom: 20px;
+  text-align: center;
+}
