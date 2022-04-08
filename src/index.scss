@@ -1,5 +1,17 @@
-$color: steelblue;
+*{
+  box-sizing: border-box;
+}
 
-.my-flix {
-  color: $color;
+#main-cont {
+  background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgba(214,214,214,1) 100%);
+  background-size: cover;
+  background-position: center;
+}
+
+body {
+  margin-top: 50px;
+}
+
+#main-1 {
+  background-color: rgb(207, 116, 30);
 }
