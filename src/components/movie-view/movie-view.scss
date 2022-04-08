@@ -1,9 +1,5 @@
-$backgroundColor: #ffffff;
-$textColor: #000000;
-
-* {
-  box-sizing: border-box;
-  font-family: sans-serif;
-  background-color: $backgroundColor;
-  color: $textColor;
+.movie-title {
+  font-weight: 800;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }

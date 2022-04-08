@@ -1,12 +1,16 @@
-$backgroundColor: #ffffff;
-$textColor: #000000;
 
-* {
-  box-sizing: border-box;
+.main-view {
   font-family: sans-serif;
-  background-color: $backgroundColor;
-  color: $textColor;
 }
-#movie_view {
-  box-sizing: border-box;
+
+#genre-view {
+  margin-top: 100px;
+  background-size: cover;
+  height: 85vh;
+}
+
+#director-view {
+  margin-top: 100px;
+  background-size: cover;
+  height: 85vh;
 }

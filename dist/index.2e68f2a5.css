@@ -1,3 +1,7 @@
+navbar {
+  background-color: red;
+}
+
 * {
   box-sizing: border-box;
   font-family: sans-serif;
@@ -21,9 +25,17 @@
   background-color: #ffffff;
   color: #000000;
 }
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  background-color: #d40e0e;
+  color: #000000;
+}
 
-
+#movie_view {
+  box-sizing: border-box;
+}
 .my-flix {
   color: steelblue;
 }
-/*# sourceMappingURL=index.1d334ea1.css.map */
+/*# sourceMappingURL=index.2e68f2a5.css.map */

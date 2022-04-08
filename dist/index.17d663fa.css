@@ -1,13 +1,5 @@
-* {
-  box-sizing: border-box;
-  font-family: sans-serif;
-  background-color: #ffffff;
-  color: #000000;
-}
 
-#movie_view {
-  box-sizing: border-box;
-}
+
 
 * {
   box-sizing: border-box;
@@ -15,24 +7,9 @@
   background-color: #ffffff;
   color: #000000;
 }
-#movie_card {
-  box-sizing: border-box;
-  margin-bottom: 30px;
-  border-color: #000000;
-  border-width: 1px;
-}
 
-#movie_card-title {
-  margin-bottom: 20px;
-  text-align: center;
-}
-* {
-  box-sizing: border-box;
-  font-family: sans-serif;
-  background-color: #ffffff;
-  color: #000000;
-}
-.my-flix {
-  color: steelblue;
+
+.app-container {
+  background-color: rgb(99, 99, 99);
 }
 /*# sourceMappingURL=index.17d663fa.css.map */

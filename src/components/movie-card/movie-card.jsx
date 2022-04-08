@@ -3,26 +3,28 @@ import PropTypes from 'prop-types';
 //import React BootStrap
 import { Button, Card } from 'react-bootstrap';
 
+import  { Link } from 'react-router-dom';
+
 import './movie-card.scss';
 
 export class MovieCard extends React.Component {
   render() {
-    const { movie, onMovieClick } = this.props;
+    const { movie} = this.props;
 
     //Bootstrap Card Element
     return(
-      <Card id="movie_card">
-        <Card.Img variant="top" src={movie.ImagePath} />
+      <Card className="movie_card">
+        <Card.Img variant="top" height="500" crossOrigin="anonymous" src={movie.ImagePath} />
         <Card.Body id="movie_card-body" className="justify-content-center">
           <Card.Title id="movie_card-title">{movie.Title}</Card.Title>
-          <Card.Text>{movie.Description}</Card.Text>
-          <Button variant="outline-success link" onClick ={() => onMovieClick(movie)}>Open</Button>
+          {/* movie description not displayed at this point, to be decided later */}
+          {/* <Card.Text>{movie.Description}</Card.Text> */}
+          <Link to ={`/movies/${movie._id}`}>
+          <Button variant="outline-success link">Open</Button>
+          </Link>
         </Card.Body>
       </Card>
     );
-    // return (
-    //   <div onClick={() => onMovieClick(movie)} className="movie-card">{movie.Title}</div>
-    // );
   }
 }
 
@@ -34,6 +36,5 @@ MovieCard.propTypes = {
     Genre: PropTypes.shape({
       Name: PropTypes.string.isRequired
     })
-  }).isRequired,
-  onMovieClick: PropTypes.func.isRequired
+  }).isRequired
 };

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 
-import { Form, Button, Col, Row } from 'react-bootstrap';
+import { Form, Button, Col, Row, Container } from 'react-bootstrap';
 
 import './registration-view.scss';
 
@@ -9,47 +10,100 @@ export function RegistrationView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ email, setEmail ] = useState('');
-  const [ birthday, setBirthday] = useState('');
+  const [ birthday, setBirthday ] = useState('');
+
+//hook for errors
+const [ usernameErr, setUsernameErr ] = useState('');
+const [ passwordErr, setPasswordErr ] = useState('');
+const [ emailErr, setEmailErr ] = useState('');
+    
+//validation function
+  const validate = () => {
+    let isReq = true;
+
+    if(!username) {
+      setUsernameErr('Username is required');
+      isReq = false;
+    }else if (username.length < 5) {
+      setUsernameErr('Username must be at least 5 characters long')
+      isReq = false;
+    }
+
+    if(!password) {
+      setPasswordErr('Password is required');
+      isReq = false;
+    }else if (password.length < 5) {
+      setPasswordErr('Password must be at least 5 characters long')
+      isReq = false;
+    }
+
+    if(!email) {
+      setEmailErr('Email is required');
+      isReq = false;
+    }else if (email.indexOf('@') === -1) {
+      setEmailErr('Enter a valid Email')
+      isReq = false;
+    }
+    return isReq;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, email, birthday);
-    /* Send a request to the server for authentication */
-    /* then call props.onRegistration(username) */
-    props.onRegistration(username);
+    const isReq = validate();
+    if(isReq) {
+      axios.post ('https://movie-api-777.herokuapp.com/users', {
+        Username: username,
+        Password: password,
+        Email: email,
+        Birthday: birthday
+      })
+      .then (response => {
+        const data = response.data;
+        console.log(data);
+        alert('Registration has been successful!')
+        window.open('/', '_self');
+      });
+    }
   };
 
   return (
-    <Form>
+    <Container id="regist-cont">
+    <Form><br/>
       <Form.Group as={Row}>
-        <Form.Label column sm={2}>
+        <Form.Label column md={3}>
           Username
         </Form.Label>
-        <Col sm={10}>
+        <Col md={9}>
           <Form.Control type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
+          { /* display validation error */ }
+          { usernameErr && <p>{usernameErr}</p> }
         </Col>
-      </Form.Group>
+      </Form.Group><br/>
 
       <Form.Group as={Row}>
-        <Form.Label column sm={2}>
+        <Form.Label column md={3}>
           Password
         </Form.Label>
-        <Col sm={10}>
+        <Col md={9}>
           <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+          { /* display validation error */ }
+          { passwordErr && <p>{passwordErr}</p> }
         </Col>
-      </Form.Group>
+      </Form.Group><br/>
 
       <Form.Group as={Row}>
-        <Form.Label column sm={2}>
+        <Form.Label column md={3}>
           Email
         </Form.Label>
-        <Col sm={10}>
+        <Col md={9}>
           <Form.Control type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+          { /* display validation error */ }
+          { emailErr && <p>{emailErr}</p> }
         </Col>
-      </Form.Group>
+      </Form.Group><br/>
 
       <Form.Group as={Row}>
-        <Form.Label column sm={2}>
+        <Form.Label column md={3}>
           Birthday
         </Form.Label>
         <Col xs="auto">
@@ -57,13 +111,14 @@ export function RegistrationView(props) {
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
-        <Col sm={{ span: 12, offset: 2 }}>
-        <Button variant="outline-success" type="submit" onClick={handleSubmit}>
+        <Col sm={{ span: 12, offset: 3 }}>
+        <Button id="regis-but" variant="outline-success" type="submit" onClick={handleSubmit}>
           Register
         </Button>
         </Col>
       </Form.Group>
     </Form>
+    </Container>
   );
 }
 

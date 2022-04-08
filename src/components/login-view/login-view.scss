@@ -4,6 +4,25 @@ $textColor: #000000;
 * {
   box-sizing: border-box;
   font-family: sans-serif;
-  background-color: $backgroundColor;
   color: $textColor;
+}
+
+#login-cont{
+  width: auto;
+  margin-top: 100px;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(0deg, rgb(253, 253, 253) 5%, rgba(214,214,214,1) 100%);
+  background-size: cover;
+  min-height: 100vh;
+  margin-left: 10%;
+  margin-right: -5%;
+}
+
+#login-but {
+  font-weight: 600;
+  color: black;
+}
+
+#login-remind {
+  font-weight: 900;
 }
