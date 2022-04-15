@@ -1,5 +1,21 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
+import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
+
+import { setMovies } from '../../actions/actions';
+
+import MoviesList from '../movies-list/movies-list';
+
+//import for Bootstrap
+import { Row, Col, Container, Button} from 'react-bootstrap';
+
+import './main-view.scss';
+
+import { Navbar } from '../navbar/navbar';
+import { RegistrationView } from '../registration-view/registration-view';
+import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
@@ -7,56 +23,133 @@ export class MainView extends React.Component {
   constructor() {
     super();
     this.state = {
-      movies: [
-              { _id: 1,  
-              Title: 'Inception', 
-              Rating: '8.8',
-              Description: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.',
-              Genre: 'Sci-Fi', 
-              Director: 'Christopher Nolan',
-              ImagePath: '...'},
-              { _id: 2, 
-              Title: 'The Shawshank Redemption', 
-              Rating: '9.3',
-              Description: 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.', 
-              Genre: 'Drama',
-              Director: 'Frank Darabont',
-              ImagePath: '...'},
-              { _id: 3, 
-              Title: 'Gladiator', 
-              Rating:'8.5',
-              Description: 'A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.', 
-              Genre: 'Adventure',
-              Director: 'Ridley Scott',
-              ImagePath: '...'}
-            ],
-      selectedMovie: null
+      user: null
     };
   }
 
-  //custom component method
-  setSelectedMovie(newSelectedMovie) {
+  getMovies(token) {
+    axios.get('https://movie-api-777.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+  //     .then(response => {
+  //       //Assign the result to the state
+  //       this.setState({
+  //         movies: response.data
+
+  //       });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }
+   .then(response => {
+
+      // #4
+      this.props.setMovies(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  } 
+
+
+  //when a user successfully logs in, function updates the "user" property in state of that particular user
+  onLoggedIn(authData) {
     this.setState({
       selectedMovie: newSelectedMovie
     });
   }
 
   render() {
-    const { movies, selectedMovie } = this.state;
-  
-    if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
+    let { movies } = this.props;
+    let { user } = this.state;
 
     return (
-      <div className="main-view">
-        {selectedMovie
-          ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-          : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
-          ))
-        }
-      </div>
+      <Router>
+        <Container className="justify-content-md-center" >
+          <Row>
+            <Navbar />
+          </Row>  
+          <Row className="main-view">
+            <Route exact path='/' render={() => {
+              if (!user) return (
+                <Col md={8}>
+                  <LoginView onLoggedIn ={user => this.onLoggedIn(user)} />
+                </Col>
+              )
+              if (movies.length === 0) return <div className="main-view"/>;
+              
+              // return movies.map(m => (
+              //   <Col md={4} sm={6} xs={12} key={m._id}>
+              //     <MovieCard movie={m} />
+              //   </Col>
+              // ))
+              return <MoviesList movies={movies}/>;
+            }} />
+
+
+            <Route path="/register" render={() => {
+              if (user) return <Redirect to="/" />
+              return (
+                <Col md={8}>
+                  <RegistrationView />
+                </Col>
+              )
+            }} />
+
+            <Route path={"/users/${user}"} render={({ history }) => {
+              if (!user) return <Redirect to="/" />
+              return (
+                <Col xs={12} md={10}>
+                  <ProfileView user={user} movies={movies} onBackClick={() => history.goBack()} />
+                </Col>
+              )
+            }} />
+
+
+            <Route path='/movies/:movieId' render={({ match, history }) => {
+              if (!user) return <Col>
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+              </Col>
+
+              if (movies.length === 0) return <div className="main-view" />;
+              return <Col md={{ span: 6, offset: 3 }}>
+                <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
+              </Col>
+            }} />
+
+            <Route path='/directors/:name' render={({ match, history }) => {
+              if (!user) return <Col>
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+              </Col>
+
+              if (movies.length === 0) return <div className="main-view" />;
+              return <Col md={{ span: 6, offset: 3 }}>
+                <DirectorView director={movies.find(m=> m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
+              </Col>
+            }} />
+
+            <Route path='/genres/:name' render={({ match, history }) => {
+              if (!user) return <Col>
+               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+              </Col>
+
+              if (movies.length === 0) return <div className="main-view" />;
+              return <Col md={{ span: 6, offset: 3 }}>
+                <GenreView genre={movies.find(m=> m.Genre.Name === match.params.name).Genre} onBackClick={() => history.goBack()} />
+              </Col>
+            }} /> 
+          
+          </Row>
+      </Container>
+      </Router>
     );
   }
 }
 
-export default MainView;
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setMovies } )(MainView);
+// export default MainView;
