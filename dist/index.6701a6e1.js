@@ -41543,7 +41543,7 @@ function NavbarView() {
                         lineNumber: 30
                     },
                     __self: this,
-                    children: "MyMovies"
+                    children: "MyFlix"
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Navbar.Toggle, {
                     "aria-controls": "basic-navbar-nav",

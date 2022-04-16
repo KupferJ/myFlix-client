@@ -27,7 +27,7 @@ export function NavbarView() {
   return (
   <Container>
     <Navbar expand="sm" className="fixed-top nav-bar" id="nav-main">
-        <Navbar.Brand href={'/'} id="nav-brand">MyMovies</Navbar.Brand>
+        <Navbar.Brand href={'/'} id="nav-brand">MyFlix</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="nav-main">
             <Nav className="ml-auto" id="nav-main">
