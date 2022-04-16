@@ -41509,7 +41509,7 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _navbarScss = require("./navbar.scss");
-function Navbar(user) {
+function Navbar() {
     const onLoggedOut = ()=>{
         localStorage.clear();
         window.open('/', '_self');

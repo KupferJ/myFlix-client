@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import './navbar.scss';
 
-export function Navbar(user) {
+export function Navbar() {
 
   const onLoggedOut = () => {
     localStorage.clear();
