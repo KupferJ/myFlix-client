@@ -112,7 +112,7 @@ const [ emailErr, setEmailErr ] = useState('');
       </Form.Group>
       <Form.Group as={Row}>
         <Col sm={{ span: 12, offset: 3 }}>
-        <Button id="regis-but" variant="outline-success" type="submit" onClick={handleSubmit}>
+        <Button id="regis-but-regis" variant="outline-success" type="submit" onClick={handleSubmit}>
           Register
         </Button>
         </Col>

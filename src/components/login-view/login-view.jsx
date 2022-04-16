@@ -73,14 +73,14 @@ export function LoginView(props) {
       <Form.Group as={Row}>
       <Col sm={{ span: 12, offset: 3 }}>
       <Button id="login-but" variant="outline-success" type="submit" onClick= { handleSubmit }>
-        Submit
+        Login
       </Button>
       </Col>
 
       </Form.Group>
     </Form><br/><br/><br/>
     <Col id="login-remind">Don't have an account yet?</Col><br/>
-      <Button href="/register" id="login-but" variant="outline-primary" size="lg">Register</Button>
+      <Button href="/register" id="regis-but" variant="outline-primary" size="lg">Register</Button>
     </Container>
   );
 

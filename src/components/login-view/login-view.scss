@@ -2,18 +2,27 @@
 #login-cont{
   width: auto;
   margin-top: 100px;
-  background: rgb(255, 255, 255);
-  background-size: cover;
-  min-height: 100vh;
+  background: rgba(255, 255, 255, 0.596);
   margin-left: 10%;
-  margin-right: -5%;
+  margin-right: -10%;
+  margin-bottom: 56vh;
+  border: 1px solid;
 }
 
 #login-but {
   font-weight: 600;
   color: black;
+  margin-top: 5px;
+}
+
+#regis-but {
+  font-weight: 600;
+  color: black;
+  margin-bottom: 10px;
+  margin-top: -10px;
 }
 
 #login-remind {
   font-weight: 900;
+  font-size: large;
 }

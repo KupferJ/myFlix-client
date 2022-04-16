@@ -42068,7 +42068,7 @@ function RegistrationView(props) {
                         },
                         __self: this,
                         children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
-                            id: "regis-but",
+                            id: "regis-but-regis",
                             variant: "outline-success",
                             type: "submit",
                             onClick: handleSubmit,
@@ -42318,7 +42318,7 @@ function LoginView(props) {
                                     lineNumber: 75
                                 },
                                 __self: this,
-                                children: "Submit"
+                                children: "Login"
                             })
                         })
                     })
@@ -42363,7 +42363,7 @@ function LoginView(props) {
             }),
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
                 href: "/register",
-                id: "login-but",
+                id: "regis-but",
                 variant: "outline-primary",
                 size: "lg",
                 __source: {
