@@ -4,9 +4,9 @@ import { Container, Button, Navbar, Nav } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
 
-import './navbar.scss';
+import './navbar-view.scss';
 
-export function Navbar() {
+export function NavbarView() {
 
   const onLoggedOut = () => {
     localStorage.clear();

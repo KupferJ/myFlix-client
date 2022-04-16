@@ -10,7 +10,7 @@ import { Row, Col, Container, Button} from 'react-bootstrap';
 
 import './main-view.scss';
 
-import { Navbar } from '../navbar/navbar';
+import { NavbarView } from '../navbar-view/navbar-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
 import { MovieView } from '../movie-view/movie-view';
@@ -71,7 +71,7 @@ class MainView extends React.Component {
       <Router>
         <Container className="justify-content-md-center" >
           <Row>
-            <Navbar />
+            <NavbarView />
           </Row>  
           <Row className="main-view">
             <Route exact path='/' render={() => {
