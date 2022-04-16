@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import { Link } from 'react-router-dom'
 
-// import Button from 'react-bootstrap/Button';
 import { Card, Col, Button, Row, Container} from 'react-bootstrap';
 
 import './movie-view.scss';

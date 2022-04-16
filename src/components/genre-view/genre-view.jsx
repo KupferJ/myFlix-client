@@ -12,7 +12,7 @@ export class GenreView extends React.Component {
       <Container>
         <Row>
           <Col>
-          <Card>
+          <Card id="genre-view">
             <Card.Body>
               <Card.Title className="text-center">{genre.Name}</Card.Title>
               <Card.Text className="movie-description">
@@ -29,10 +29,3 @@ export class GenreView extends React.Component {
     );
   }
 }
-
-GenreView.proptypes = {
-  genre: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-      Description: PropTypes.string.isRequired,
-  }).isRequired,
-};

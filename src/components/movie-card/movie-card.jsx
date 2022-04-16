@@ -17,8 +17,6 @@ export class MovieCard extends React.Component {
         <Card.Img variant="top" height="500" crossOrigin="anonymous" src={movie.ImagePath} />
         <Card.Body id="movie_card-body" className="justify-content-center">
           <Card.Title id="movie_card-title">{movie.Title}</Card.Title>
-          {/* movie description not displayed at this point, to be decided later */}
-          {/* <Card.Text>{movie.Description}</Card.Text> */}
           <Link to ={`/movies/${movie._id}`}>
           <Button variant="outline-success link">Open</Button>
           </Link>

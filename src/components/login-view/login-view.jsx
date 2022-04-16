@@ -79,17 +79,9 @@ export function LoginView(props) {
 
       </Form.Group>
     </Form><br/><br/><br/>
-    <Col id="login-remind">Don't have an account yet? Register yourself now!</Col><br/>
+    <Col id="login-remind">Don't have an account yet?</Col><br/>
       <Button href="/register" id="login-but" variant="outline-primary" size="lg">Register</Button>
     </Container>
   );
 
 }
-
-LoginView.proTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired
-  }),
-  onLoggedIn: PropTypes.func.isRequired
-};
